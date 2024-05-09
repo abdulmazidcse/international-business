@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Modes_of_carrying;
+use App\Models\ModesOfCarrying;
 use DB;
 
 class ModeCarryingController extends Controller
 {
     public function index()
     {
-        $modes = Modes_of_carrying::all();
+        $modes = ModesOfCarrying::all();
         return view('pages.modes-carrying.index', compact('modes'));
     }
 
@@ -26,7 +26,7 @@ class ModeCarryingController extends Controller
         ]);
         DB::beginTransaction();
         try {
-            $customer = new Modes_of_carrying();
+            $customer = new ModesOfCarrying();
             $customer->name = $validatedData['name'];   
             $customer->save(); 
             DB::commit();
@@ -39,22 +39,21 @@ class ModeCarryingController extends Controller
 
     public function edit($id)
     {  
-        $modes = Modes_of_carrying::find($id);
+        $modes = ModesOfCarrying::find($id);
         return view('pages.modes-carrying.edit', compact('modes'));
     }
 
     public function update(Request $request,  $id)
     {
-        $Modes_of_carrying = Modes_of_carrying::find($id);
-        $Modes_of_carrying->name = $request->get('name');   
-        $Modes_of_carrying->update($request->all());
+        $ModesOfCarrying = ModesOfCarrying::find($id);
+        $ModesOfCarrying->name = $request->get('name');   
+        $ModesOfCarrying->update($request->all());
         return redirect()->route('mode-carrying.index');
     }
 
-    public function destroy($id) 
-    {
-        $Modes_of_carrying = Modes_of_carrying::find($id);
-        $Modes_of_carrying->delete();
-        return redirect()->route('mode-carrying.index');
+    public function destroy(ModesOfCarrying  $modes_of_carrying) 
+    { 
+        $modes_of_carrying->delete();
+        return redirect()->route('modes_of_carrying.index');
     }
 }

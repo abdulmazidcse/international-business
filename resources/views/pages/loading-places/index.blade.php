@@ -29,7 +29,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">  Loading Place list</h3>
-                            <a href="{{ route('loading-places.create') }}" class="float-right"><i class="fas fa-create"></i> Create New Loading Place</a>
+                            <a href="{{ route('load_places.create') }}" class="float-right"><i class="fas fa-create"></i> Create New Loading Place</a>
                             
                         </div>
                         <!-- /.card-header -->
@@ -67,9 +67,9 @@
                                                     <td class="sorting_1" tabindex="0">{{ $Loading_place->name }} </td> 
                                                     <td >
                                                       <div class="btn-group btn-group-sm">
-                                                        <a href="{{ route('loading-places.edit', $Loading_place->id) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                                                        <a href="{{ route('load_places.edit', $Loading_place->id) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
                                                          
-                                                        <form action="{{ route('loading-places.destroy', $Loading_place->id) }}" method="POST">
+                                                        <form action="{{ route('load_places.destroy', $Loading_place->id) }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
                                                             <a href="javascript:;" onclick="return confirm('are you sure you want to delete?')">                                                        

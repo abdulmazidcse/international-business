@@ -29,7 +29,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title"> Mode of Carrying list</h3>
-                            <a href="{{ route('mode-carrying.create') }}" class="float-right"><i class="fas fa-create"></i> Create New Mode of Carrying </a>
+                            <a href="{{ route('modes_of_carrying.create') }}" class="float-right"><i class="fas fa-create"></i> Create New Mode of Carrying </a>
                             
                         </div>
                         <!-- /.card-header -->
@@ -67,9 +67,9 @@
                                                     <td class="sorting_1" tabindex="0">{{ $mode->name }} </td> 
                                                     <td >
                                                       <div class="btn-group btn-group-sm">
-                                                        <a href="{{ route('mode-carrying.edit', $mode->id) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                                                        <a href="{{ route('modes_of_carrying.edit', $mode->id) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
                                                          
-                                                        <form action="{{ route('mode-carrying.destroy', $mode->id) }}" method="POST">
+                                                        <form action="{{ route('modes_of_carrying.destroy', $mode->id) }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
                                                             <a href="javascript:;" onclick="return confirm('are you sure you want to delete?')">                                                        

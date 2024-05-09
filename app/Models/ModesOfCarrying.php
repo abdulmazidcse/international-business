@@ -5,8 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Loading_places extends Model
+class ModesOfCarrying extends Model
 {
     use HasFactory;
-    protected $table = 'loading_places';
+    protected $table = 'modes_of_carrying';
+
+    protected $fillable = ['name'];
 }

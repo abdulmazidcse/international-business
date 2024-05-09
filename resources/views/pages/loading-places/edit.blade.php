@@ -48,7 +48,7 @@
                         </ul>
                     </div>
                 @endif
-                  <form role="form" action="{{ route('loading-places.update', $loading_places->id) }}" method="POST">
+                  <form role="form" action="{{ route('load_places.update', $loading_places->id) }}" method="POST">
                   @method('PUT') 
                     @csrf
                     <div class="card-body">

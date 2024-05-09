@@ -104,7 +104,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ url('loading-places') }}" class="nav-link {{ request()->is('loading-places') ? 'active' : '' }}">
+                <a href="{{ url('load_places') }}" class="nav-link {{ request()->is('load_places') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Loading Places </p>
                 </a>
@@ -116,7 +116,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ url('mode-carrying') }}" class="nav-link {{ request()->is('mode-carrying') ? 'active' : '' }}">
+                <a href="{{ url('modes_of_carrying') }}" class="nav-link {{ request()->is('modes_of_carrying') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Mode of Carrying</p>
                 </a>

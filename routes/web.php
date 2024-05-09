@@ -26,9 +26,9 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/invoice-details/{id}', [App\Http\Controllers\InvoiceUploadController::class,'invoiceDetails']);
     Route::resource('destinations', App\Http\Controllers\FinalDestinationController::class);
-    Route::resource('loading-places', App\Http\Controllers\LoadingPlacesController::class);
+    Route::resource('load_places', App\Http\Controllers\LoadingPlacesController::class);
     Route::resource('port-discharged', App\Http\Controllers\PortDischargedController::class);
-    Route::resource('mode-carrying', App\Http\Controllers\ModeCarryingController::class);
+    Route::resource('modes_of_carrying', App\Http\Controllers\ModeCarryingController::class);
     Route::resource('customer', App\Http\Controllers\CustomerController::class);
 });
 

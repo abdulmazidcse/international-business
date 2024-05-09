@@ -7,7 +7,7 @@ use App\Models\Customer;
 use App\Models\Country; 
 use App\Models\Final_destinations;
 use App\Models\Modes_of_carrying;
-use App\Models\Loading_places;
+use App\Models\LoadingPlace;
 use App\Models\Port_of_discharged;
 use DB;
 
@@ -15,7 +15,7 @@ class LoadingPlacesController extends Controller
 {
     public function index()
     {
-        $Loading_places = Loading_places::all();
+        $Loading_places = LoadingPlace::all();
         return view('pages.loading-places.index', compact('Loading_places'));
     }
 
@@ -31,11 +31,11 @@ class LoadingPlacesController extends Controller
         ]);
         DB::beginTransaction();
         try {
-            $customer = new Loading_places();
+            $customer = new LoadingPlace();
             $customer->name = $validatedData['name'];   
             $customer->save(); 
             DB::commit();
-            return redirect()->route('loading-places.index')->with('message', 'Successfully done!');
+            return redirect()->route('load_places.index')->with('message', 'Successfully done!');
         }catch (\Exception $exception) {
             DB::rollBack();
             return redirect()->back();
@@ -44,20 +44,20 @@ class LoadingPlacesController extends Controller
 
     public function edit($id)
     {  
-        $loading_places = Loading_places::find($id);
+        $loading_places = LoadingPlace::find($id);
         return view('pages.loading-places.edit', compact('loading_places'));
     }
 
-    public function update(Request $request, Loading_places $loading_places)
+    public function update(Request $request, LoadingPlace $load_places)
     {
-        $loading_places->name = $request->get('name');   
-        $loading_places->update($request->all());
-        return redirect()->route('loading-places.index');
+        $load_places->name = $request->get('name');   
+        $load_places->update($request->all());
+        return redirect()->route('load_places.index');
     }
 
-    public function destroy(Loading_places $loading_places)
+    public function destroy(LoadingPlace $load_place)
     {
-        $loading_places->delete();
-        return redirect()->route('loading-places.index');
+        $load_place->delete();
+        return redirect()->route('load_places.index');
     }
 }

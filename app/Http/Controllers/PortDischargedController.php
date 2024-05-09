@@ -50,10 +50,9 @@ class PortDischargedController extends Controller
         return redirect()->route('port-discharged.index');
     }
 
-    public function destroy($id) 
+    public function destroy(Port_of_discharged  $port_discharged) 
     {
-        $port_of_discharged = Port_of_discharged::find($id);
-        $port_of_discharged->delete();
+        $port_discharged->delete();
         return redirect()->route('port-discharged.index');
     }
 }
