@@ -47,11 +47,11 @@ class Order extends Model
         return $this->belongsTo(Final_destinations::class,'final_destination_id','id');
     }
 
-    public function loading(){
-        return $this->belongsTo(Loading_places::class,'loading_place_id','id');
+    public function loading(){ 
+        return $this->belongsTo(LoadingPlace::class,'loading_place_id','id');
     }
     public function mode(){
-        return $this->belongsTo(Modes_of_carrying::class,'mode_carrying_id','id');
+        return $this->belongsTo(ModesOfCarrying::class, 'mode_carrying_id','id'); 
     }
     public function discharged(){
         return $this->belongsTo(Port_of_discharged::class,'port_discharge_id','id');

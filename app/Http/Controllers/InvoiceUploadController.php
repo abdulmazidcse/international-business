@@ -6,18 +6,21 @@ use App\Models\Bank;
 use App\Models\Company;
 use App\Models\Country;
 use App\Models\Customer;
-use App\Models\Final_destinations;
-use App\Models\Loading_places;
-use App\Models\Modes_of_carrying;
+use App\Models\Final_destinations; 
+use App\Models\LoadingPlace; 
+use App\Models\ModesOfCarrying;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Port_of_discharged;
-use App\Models\Product;
+use App\Models\SignatureUpload;
 use App\Models\Terms;
 use Auth;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use App\Helpers\PDFHelper; 
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
 
 class InvoiceUploadController extends Controller
 {
@@ -29,14 +32,43 @@ class InvoiceUploadController extends Controller
 
     public function invoiceDetails($id){
         $orderList = Order::with(['customer','company'])->where('id',$id)->first();
-
         $orderDetails = OrderItem::where('sale_id',$id)->get();
-
         $terms = Terms::where('customer_id',$orderList->customer_id)->get();
-
-
-
         return view('pages.invoice_upload.invoiceDetails', compact('orderList','orderDetails','terms'));
+    }
+
+    public function poInvoicePrint($id)
+    {
+        $orderList = Order::with(['customer','company','country','bank','mode','destination','loading','discharged'])->where('id',$id)->first(); 
+        $orderDetails = OrderItem::where('sale_id',$id)->get(); 
+        $signature = SignatureUpload::where('status', 1)->first();
+        $data = [
+            'title' => 'Sales Contact PDF',
+            'orderlist' => $orderList,
+            'orderdetails' => $orderDetails, 
+            'signature' => $signature ? Storage::url($signature->signature) : '',
+        ];
+        // return view('pages.invoice_upload.sc-invoice-pdf', $data);
+        $pdfContent = PDFHelper::generatePDF('pages.invoice_upload.sc-invoice-pdf', $data);
+
+        // Return the PDF as a response
+        return Response::make($pdfContent, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="Sales-Contact-PDF.pdf"'
+        ]);
+        // try{
+        //     $title = "Purchase Order"; 
+        //     return viewMPDF('pages.invoice_upload.sc-invoice-pdf', [
+        //         'title' => $title,
+        //         'purchaseOrder' => array(),
+        //         'deliveryContact' => array()
+        //     ], $title, $title);
+
+        //     return view('pages.invoice_upload.sc-invoice-print',compact('title','purchaseOrder', 'deliveryContact'));
+        // }catch(\Throwable $th){ 
+        //     dd($th->getMessage());
+        //     // return redirect()->back()->with('warning', $th->getMessage());
+        // }
     }
 
     public function create()
@@ -46,8 +78,8 @@ class InvoiceUploadController extends Controller
         $country = Country::get();
         $bank = Bank::get();
         $destinations = Final_destinations::get();
-        $modes = Modes_of_carrying::get();
-        $loading_places = Loading_places::get();
+        $modes = ModesOfCarrying::get();
+        $loading_places = LoadingPlace::get();
         $discharged = Port_of_discharged::get();
         return view('pages/invoice_upload/create', compact('exporter', 'importer', 'country', 'bank', 'destinations', 'modes', 'loading_places','discharged'));
     }

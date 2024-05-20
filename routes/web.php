@@ -25,11 +25,13 @@ Route::middleware('auth')->group(function () {
     Route::resource('banks', App\Http\Controllers\BankController::class);
     
     Route::get('/invoice-details/{id}', [App\Http\Controllers\InvoiceUploadController::class,'invoiceDetails']);
+    Route::get('/invoice-print/{id}', [App\Http\Controllers\InvoiceUploadController::class,'poInvoicePrint']);
     Route::resource('destinations', App\Http\Controllers\FinalDestinationController::class);
     Route::resource('load_places', App\Http\Controllers\LoadingPlacesController::class);
     Route::resource('port-discharged', App\Http\Controllers\PortDischargedController::class);
     Route::resource('modes_of_carrying', App\Http\Controllers\ModeCarryingController::class);
     Route::resource('customer', App\Http\Controllers\CustomerController::class);
+    Route::resource('signature', App\Http\Controllers\SignatureUploadController::class);
 });
 
 include('auth.php');

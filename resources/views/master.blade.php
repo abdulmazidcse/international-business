@@ -187,23 +187,56 @@
 
   });
 
-  function print()
-{
-    var divContents = $("#printDiv").html();//div which have to print
-    var printWindow = window.open('', '', 'height=700,width=1080');
-    printWindow.document.write('<html><head><title></title>');
-        printWindow.document.write('<link href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}" rel="stylesheet">');//external styles
-        printWindow.document.write('<link href="{{ asset('assets/dist/css/adminlte.min.css') }}" rel="stylesheet">');
-        printWindow.document.write(divContents);
-        printWindow.document.write('</body></html>');
-        printWindow.document.close();
+  function print() {
+    var divContents = $("#printDiv").html(); // div which has to print
+    var printWindow = window.open('', '', 'height=900, width=1080');
 
-        printWindow.onload=function(){
-         printWindow.focus();
-         printWindow.print();
-         printWindow.close();
-     }
- }
+    printWindow.document.write('<html><head><title>Print Preview</title>');
+    printWindow.document.write('<link href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}" rel="stylesheet">');
+    printWindow.document.write('<link href="{{ asset('assets/dist/css/adminlte.min.css') }}" rel="stylesheet">');
+    
+    // Adding CSS for header and footer
+    printWindow.document.write('<style>');
+    printWindow.document.write('@media print {');
+    printWindow.document.write('@page { margin: 70mm 10mm 50mm 10mm; size: auto; }'); // Adjust margins as needed  
+    printWindow.document.write('.print-content { border: 2px solid black; padding: 15px; box-sizing: border-box; page-break-after: auto;}');
+    // printWindow.document.write('.page { box-sizing: border-box; page-break-inside: avoid; padding: 20mm;}'); // Ensure borders and spacing for header/footer
+    // printWindow.document.write('.print-content:last-child { page-break-after: auto; }'); // Prevent extra page after last content
+    printWindow.document.write('.content { border: 2px solid black; box-sizing: border-box; page-break-after: auto; }');
+    printWindow.document.write('}');
+    printWindow.document.write('</style>');
+
+    printWindow.document.write('</head><body>');
+
+    // Add header
+    printWindow.document.write('<header>');
+    printWindow.document.write(''); // Customize your header content here
+    printWindow.document.write('</header>');
+
+    // Add main content
+    printWindow.document.write('<div class="print-content">'); 
+    printWindow.document.write('<div class="content">');
+    printWindow.document.write(divContents);
+    printWindow.document.write('</div>');
+    printWindow.document.write('</div>');
+
+    // Add footer
+    printWindow.document.write('<footer>');
+    printWindow.document.write(''); // Customize your footer content here
+    printWindow.document.write('</footer>');
+
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+
+    printWindow.onload = function() {
+        printWindow.focus();
+        printWindow.print();
+        printWindow.close();
+    };
+}
+
+
+
 </script>
 
 </body>

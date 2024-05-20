@@ -72,6 +72,7 @@
                                                     <td class="sorting_1" tabindex="0">{{ $row->order_date }} </td>
                                                     <td >
                                                       <div class="btn-group btn-group-sm">
+                                                        <a href="{{ url('invoice-print/' . $row->id) }}" class="btn btn-info"><i class="fas fa-print"></i></a>
                                                         <a href="{{ url('invoice-details/' . $row->id) }}" class="btn btn-info"><i class="fas fa-eye"></i></a>
                                                         <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                                       </div>

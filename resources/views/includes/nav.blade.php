@@ -121,6 +121,12 @@
                   <p>Mode of Carrying</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{ url('signature') }}" class="nav-link {{ request()->is('signature') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Signature</p>
+                </a>
+              </li>
             </ul>
           </li>
         </ul>
