@@ -75,8 +75,8 @@
                                                     <td class="sorting_1" tabindex="0">{{ $customer->id }} </td>
                                                     <td class="sorting_1" tabindex="0">{{ $customer->name }} </td>
                                                     <td class="sorting_1" tabindex="0">{{ $customer->address }} </td> 
-                                                    <td class="sorting_1" tabindex="0">{{ $customer->terms_and_conditions }} </td> 
-                                                    <td class="sorting_1" tabindex="0">{{ $customer->payment_terms }} </td>  
+                                                    <td class="sorting_1" tabindex="0">{!! $customer->terms_and_conditions !!} </td> 
+                                                    <td class="sorting_1" tabindex="0">{!!$customer->payment_terms !!} </td>  
                                                     <td >
                                                       <div class="btn-group btn-group-sm">
                                                         <a href="{{ route('customer.edit', $customer->id) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a>

@@ -295,37 +295,39 @@
                      <td colspan="10" style="text-align: center; text-transform: uppercase"><strong> Total In Words: USD {{ numberToWord($totalValueUsdWithFreight) }} </strong></td>
                  </tr>
                  <tr>
-                     <td colspan="10" style="text-align: left;"><strong> Terms & Conditions:
-                             1. TERMS OF PAYMENT : 50% IN ADVANCE BY TT, REST 50% TT BEFORE SHIPMENT. <br>
+                     <td colspan="10" style="text-align: left;">
+                        <strong> Terms & Conditions:
+                            {!! $orderlist->customer->terms_and_conditions !!}
+
+                             {{-- 1. TERMS OF PAYMENT : 50% IN ADVANCE BY TT, REST 50% TT BEFORE SHIPMENT. <br>
                              2. PARTIAL AND TRANS SHIPMENT: ALLOWED. <br>
                              3. SHIPPING MARKS : SSG. <br>
                              4. AMENDMENT IS ALLOWED IN ANY TIME. <br>
-                             5.SHIPMENT WILL BE WITH IN 90 DAYS FROM ISSUE EXP DATE <br>
+                             5.SHIPMENT WILL BE WITH IN 90 DAYS FROM ISSUE EXP DATE <br> --}}
 
                          </strong></td>
                  </tr>
              </tbody> 
             </table>
-        <table class="signatures">
-            <tbody>
-                <tr>
-                    <td colspan="2" style="text-align: center;"> 
-                        @if($signature)
-                        <img src="data:image/png;base64, {{ base64_encode($signature) }}" height="100px" width="100px" />
-                        {{-- <img src="{{ $signature }}" width="100" > --}}
-                        @endif
-                    </td>
-                </tr>
-                <tr style="border: none !important"> 
-                </tr>
-                <tr>
-                    <td colspan="2" style="text-align: right;border: none !important;">
-                        
-                    </td>
-                </tr>
-            </tbody>
-       
-        </table>
+            <table class="signatures">
+                <tbody>
+                    <tr>
+                        <td colspan="2" style="text-align: center;"> 
+                            @if($signature_file)
+                            <img style="height: auto; width: 100px;" src="{{$signature_file}}" />
+                            @endif
+                        </td>
+                    </tr>
+                    <tr style="border: none !important"> 
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: right;border: none !important;">
+                            
+                        </td>
+                    </tr>
+                </tbody>
+        
+            </table>
      </div> 
  </body>
 

@@ -75,15 +75,20 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="terms_and_conditions">Terms & conditions</label>
-                                            <input type="text" id="terms_and_conditions"
-                                                class="form-control @error('terms_and_conditions') is-invalid @enderror"
-                                                name="terms_and_conditions" placeholder="Enter terms & conditions " value="{{$customer->terms_and_conditions}}">
+                                            <textarea id="myeditorinstance"  value="{{$customer->terms_and_conditions}}"
+                                            class="form-control @error('terms_and_conditions') is-invalid @enderror"
+                                            name="terms_and_conditions" placeholder="Enter terms & conditions ">
+                                            {{$customer->terms_and_conditions}}
+                                        </textarea> 
+                                            
                                         </div>
                                         <div class="form-group">
                                             <label for="payment_terms">Payment Terms</label>
-                                            <input type="text" id="payment_terms"
+                                            <textarea id="payment_terms"  value="{{$customer->terms_and_conditions}}"
                                                 class="form-control @error('payment_terms') is-invalid @enderror"
-                                                name="payment_terms" placeholder="Enter Payment Terms" value="{{$customer->payment_terms}}">
+                                                name="payment_terms" >
+                                                {{$customer->payment_terms}} 
+                                            </textarea> 
                                         </div> 
                                     </div> 
                                   </div>
@@ -163,4 +168,21 @@
     </section>
     <!-- /.content -->
 
+@endsection()
+
+@section('script')
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#payment_terms'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#myeditorinstance'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
 @endsection()

@@ -77,3 +77,16 @@ function numberToWord($num) {
         return $integerWords . ' only';
     }
 }
+
+
+// function storage path
+function storagePath()
+{
+    $host = request()->getHttpHost();
+    if (str_contains($host, '127.0.0.1') || str_contains($host, 'localhost')) { 
+        $path = 'storage/';
+    }else{
+        $path = storage_path();
+    }
+    return $path;
+}

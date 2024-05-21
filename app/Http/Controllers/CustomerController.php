@@ -5,8 +5,8 @@ use Illuminate\Http\Request;
 use App\Models\Customer;
 use App\Models\Country; 
 use App\Models\Final_destinations;
-use App\Models\Modes_of_carrying;
-use App\Models\Loading_places;
+use App\Models\ModesOfCarrying;
+use App\Models\LoadingPlace;
 use App\Models\Port_of_discharged;
 use DB;
 
@@ -22,8 +22,8 @@ class CustomerController extends Controller
     {
         $country = Country::get(); 
         $destinations = Final_destinations::get();
-        $modes = Modes_of_carrying::get();
-        $loading_places = Loading_places::get();
+        $modes = ModesOfCarrying::get();
+        $loading_places = LoadingPlace::get();
         $discharged = Port_of_discharged::get();
         return view('pages.customer.create', compact('country','destinations','modes','loading_places','discharged'));
     }
@@ -67,8 +67,8 @@ class CustomerController extends Controller
     { 
         $country = Country::get(); 
         $destinations = Final_destinations::get();
-        $modes = Modes_of_carrying::get();
-        $loading_places = Loading_places::get();
+        $modes = ModesOfCarrying::get();
+        $loading_places = LoadingPlace::get();
         $discharged = Port_of_discharged::get();
         return view('pages.customer.edit', compact('customer', 'country','destinations','modes','loading_places','discharged'));
     }

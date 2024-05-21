@@ -36,7 +36,8 @@
   <!-- Bootstrap4 Duallistbox -->
   <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
   <!-- Theme style -->
-
+  <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script>
+  
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -52,7 +53,7 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-     @yield('content')
+    @yield('content')
     <!-- /.content-header -->
   </div>
   <!-- /.content-wrapper -->
@@ -112,6 +113,7 @@
 <!-- Bootstrap Switch -->
 <script src="{{ asset('assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
 
+@yield('script') 
 <script>
   $(function () {
     //Initialize Select2 Elements
