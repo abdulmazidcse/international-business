@@ -15,6 +15,11 @@ class Order extends Model
         'invoice_number',
         'customer_id',
         'exporter_id',
+        'pi_status',
+        'ci_status',
+        'pw_status',
+        'tr_status',
+        'angikarnama_status',
         'country_id',
         'mode_carrying_id',
         'port_discharge_id',
@@ -31,6 +36,12 @@ class Order extends Model
         'sales_term'
     ];
 
+    public function items(){
+        return $this->hasMany(OrderItem::class,'sale_id','id');
+    }
+    public function piitems(){
+        return $this->hasMany(OrderItem::class,'sale_id','id');
+    }
     public function customer(){
         return $this->belongsTo(Customer::class,'customer_id','id');
     }

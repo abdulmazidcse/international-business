@@ -12,6 +12,10 @@ class OrderItem extends Model
 
     protected $fillable = [
         'sale_id',
+        'pi_status',
+        'ci_status',
+        'pw_status',
+        'tr_status',
         'product_code', 
         'description', 
         'hs_code', 
@@ -49,5 +53,9 @@ class OrderItem extends Model
 
     public function product(){
         return $this->belongsTo(Product::class,'product_code','sap_code');
+    }
+
+    public function order(){
+        return $this->belongsTo(Order::class,'sale_id','id');
     }
 }

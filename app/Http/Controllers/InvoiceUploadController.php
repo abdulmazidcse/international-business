@@ -37,7 +37,7 @@ class InvoiceUploadController extends Controller
         return view('pages.invoice_upload.invoiceDetails', compact('orderList','orderDetails','terms'));
     }
 
-    public function poInvoicePrint($id) {
+    public function scInvoicePrint($id) {
         $orderList = Order::with(['customer','company','country','bank','mode','destination','loading','discharged'])->where('id', $id)->first();
         $orderDetails = OrderItem::where('sale_id', $id)->get();
         $signature = SignatureUpload::where('status', 1)->first();
@@ -67,6 +67,48 @@ class InvoiceUploadController extends Controller
             'Content-Type' => 'application/pdf',
             'Content-Disposition' => 'inline; filename="Sales-Contact-PDF.pdf"'
         ]);
+    }
+    public function piGenerate($id) {
+        $orderList = Order::where('pi_status', 0)->where('id', $id)->first();
+        $orderDetails = OrderItem::where('sale_id', $id)->where('pi_status',0)->get(); 
+        // dd($orderList, $orderDetails);
+        $data = [
+            'title' => 'Proforma Invoice',
+            'orderList' => $orderList,
+            'orderDetails' => $orderDetails, 
+        ]; 
+        // Generate the PDF content
+        return view('pages.invoice_upload.pi-generate', $data); 
+    }
+    public function generatePi(Request $request){ 
+        $order_id = 0;
+        foreach ($request->get('pi-selected') as $key => $value) {
+            $orderItem = OrderItem::find($value);
+            $orderItem->pi_status = 1;
+            $orderItem->update(); 
+            $order_id = $orderItem->sale_id;
+        };
+        $orderDetails = OrderItem::where('sale_id', $order_id)->where('pi_status',0)->first(); 
+        if(!$orderDetails){
+            $order = Order::find($order_id);
+            $order->pi_status = 1;
+            $order->update();
+        }
+        return redirect()->back()->with('success', 'PI Generated successfully');
+    }
+    public function piList(){
+        $orderList = Order::whereHas('items', function($query) {
+            $query->where('pi_status', 1);
+        })->with(['items' => function($query) {
+            $query->where('pi_status', 1);
+        }])->get();
+
+        // $orderList = Order::whereHas('items')->with(['items' => function($query) {
+        //     $query->where('pi_status', 1);
+        // }])->get();
+        return view('pages.invoice_upload.pi-list',compact('orderList')); 
+        // return $orderList;
+        // exit;
     }
 
     public function poInvoicePrintOld($id)  {

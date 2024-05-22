@@ -297,13 +297,7 @@
                  <tr>
                      <td colspan="10" style="text-align: left;">
                         <strong> Terms & Conditions:
-                            {!! $orderlist->customer->terms_and_conditions !!}
-
-                             {{-- 1. TERMS OF PAYMENT : 50% IN ADVANCE BY TT, REST 50% TT BEFORE SHIPMENT. <br>
-                             2. PARTIAL AND TRANS SHIPMENT: ALLOWED. <br>
-                             3. SHIPPING MARKS : SSG. <br>
-                             4. AMENDMENT IS ALLOWED IN ANY TIME. <br>
-                             5.SHIPMENT WILL BE WITH IN 90 DAYS FROM ISSUE EXP DATE <br> --}}
+                            {!! $orderlist->customer->terms_and_conditions !!} 
 
                          </strong></td>
                  </tr>

@@ -76,6 +76,12 @@
                   <p>Invoice List</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{ url('pi-list') }}" class="nav-link {{ request()->is('pi-list') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>PI List</p>
+                </a>
+              </li>
             </ul>
           </li>
           <li class="nav-item has-treeview {{ request()->is('bank*') ? 'menu-open' : '' }}">

@@ -14,6 +14,10 @@ return new class extends Migration
         Schema::create('order_items', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('sale_id'); 
+            $table->unsignedTinyInteger('pi_status', 1)->default(0)->comment('0=No|1=Yes');
+            $table->unsignedTinyInteger('ci_status', 1)->default(0)->comment('0=No|1=Yes');
+            $table->unsignedTinyInteger('pw_status', 1)->default(0)->comment('0=No|1=Yes');
+            $table->unsignedTinyInteger('tr_status', 1)->default(0)->comment('0=No|1=Yes'); 
             $table->string('product_code');
             $table->string('description');
             $table->string('hs_code');
