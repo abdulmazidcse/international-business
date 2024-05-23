@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>{{ 'Sales Contact' }}</title>
+	<title>{{ 'Proforma Invoice' }}</title>
 	<style>
 		@page {
 		   margin-top: 1.85in;
@@ -128,12 +128,12 @@
 			<tbody>
 				<tr>
 					<th colspan="10" style="text-align: center; ">
-						<h2 class="mb-0" style=" "><strong>Sales Contact</strong></h2>
+						<h2 class="mb-0" style=" "><strong>Proforma Invoice</strong></h2>
 					</th>
 				</tr>
 				<tr>
 					<th style="text-align: right !important; ">
-					   Sales Contact
+					   Proforma Invoice
 					</th>
 					<th colspan="2" style="text-align: right !important; ">
 						{{ $orderlist->invoice_number }}

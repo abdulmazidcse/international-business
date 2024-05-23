@@ -73,7 +73,7 @@
               <li class="nav-item">
                 <a href="{{ url('invoice-upload') }}" class="nav-link {{ request()->is('invoice-upload') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Invoice List</p>
+                  <p>SC List</p>
                 </a>
               </li>
               <li class="nav-item">

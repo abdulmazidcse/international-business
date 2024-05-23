@@ -101,14 +101,38 @@ class InvoiceUploadController extends Controller
             $query->where('pi_status', 1);
         })->with(['items' => function($query) {
             $query->where('pi_status', 1);
-        }])->get();
+        }])->get(); 
+        return view('pages.invoice_upload.pi-list',compact('orderList'));  
+    }
+    public function piInvoicePrint($id) {
+        $orderList = Order::with(['customer','company','country','bank','mode','destination','loading','discharged'])->where('id', $id)->first();
+        $orderDetails = OrderItem::where('sale_id', $id)->get();
+        $signature = SignatureUpload::where('status', 1)->first();
 
-        // $orderList = Order::whereHas('items')->with(['items' => function($query) {
-        //     $query->where('pi_status', 1);
-        // }])->get();
-        return view('pages.invoice_upload.pi-list',compact('orderList')); 
-        // return $orderList;
-        // exit;
+        $signaturePath = $signature ? storagePath().$signature->signature : ''; 
+        $signatureBase64 = '';
+
+        if (file_exists($signaturePath)) {
+            $signatureBase64 = base64_encode(file_get_contents($signaturePath));
+        }
+        
+        $data = [
+            'title' => 'Sales Contact PDF',
+            'orderlist' => $orderList,
+            'orderdetails' => $orderDetails,
+            'signature' => $signatureBase64,
+            'signature_file' => $signaturePath,
+        ];
+
+        // Generate the PDF content
+        // return view('pages.invoice_upload.sc-invoice-pdf', $data);
+        $pdfContent = PDFHelper::generatePDF('pages.invoice_upload.pi-invoice-pdf', $data);
+
+        // Return the PDF as a response
+        return Response::make($pdfContent, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="Sales-Contact-PDF.pdf"'
+        ]);
     }
 
     public function poInvoicePrintOld($id)  {
