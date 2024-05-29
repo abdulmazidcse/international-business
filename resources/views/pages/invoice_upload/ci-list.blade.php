@@ -77,7 +77,7 @@
                                                     <td class="sorting_1" tabindex="0">{{ $row->order_date }} </td>
                                                     <td >
                                                       <div class="btn-group btn-group-sm"> 
-                                                        <a title="Print Proforma Invoice" target="_blank" href="{{ url('pi-print/' . $row->id) }}" class="btn btn-success"><i class="fas fa-print"></i></a> 
+                                                        <a title="Print Proforma Invoice" target="_blank" href="{{ url('ci-print/' . $row->id) }}" class="btn btn-success"><i class="fas fa-print"></i></a> 
                                                          
                                                       </div>
                                                     </td>

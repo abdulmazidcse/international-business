@@ -27,9 +27,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/invoice-details/{id}', [App\Http\Controllers\InvoiceUploadController::class,'invoiceDetails']);
     Route::get('/sc-print/{id}', [App\Http\Controllers\InvoiceUploadController::class,'scInvoicePrint']);
     Route::get('/pi-generate/{id}', [App\Http\Controllers\InvoiceUploadController::class,'piGenerate']);
+    Route::get('/ci-print/{id}', [App\Http\Controllers\InvoiceUploadController::class,'scInvoicePrint']);
+    Route::get('/ci-generate/{id}', [App\Http\Controllers\InvoiceUploadController::class,'ciGenerate']);
     Route::post('generate-pi', [App\Http\Controllers\InvoiceUploadController::class,'generatePi'])->name('generate-pi');
+    Route::post('generate-ci', [App\Http\Controllers\InvoiceUploadController::class,'generateCi'])->name('generate-ci');
     Route::get('pi-list', [App\Http\Controllers\InvoiceUploadController::class,'piList']);
     Route::get('/pi-print/{id}', [App\Http\Controllers\InvoiceUploadController::class,'piInvoicePrint']);
+    Route::get('ci-list', [App\Http\Controllers\InvoiceUploadController::class,'ciList']);
+    Route::get('/ci-print/{id}', [App\Http\Controllers\InvoiceUploadController::class,'ciInvoicePrint']);
     Route::resource('destinations', App\Http\Controllers\FinalDestinationController::class);
     Route::resource('load_places', App\Http\Controllers\LoadingPlacesController::class);
     Route::resource('port-discharged', App\Http\Controllers\PortDischargedController::class);

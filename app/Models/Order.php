@@ -39,8 +39,8 @@ class Order extends Model
     public function items(){
         return $this->hasMany(OrderItem::class,'sale_id','id');
     }
-    public function piitems(){
-        return $this->hasMany(OrderItem::class,'sale_id','id');
+    public function commercialInvoice(){
+        return $this->belongsTo(CommercialInvoice::class,'id','sale_id');
     }
     public function customer(){
         return $this->belongsTo(Customer::class,'customer_id','id');

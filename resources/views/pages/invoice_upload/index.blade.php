@@ -52,6 +52,10 @@
                                                     <th class="sorting_desc" tabindex="0" aria-controls="example2"
                                                         rowspan="1" colspan="1"
                                                         aria-label="Rendering engine: activate to sort column ascending"
+                                                        aria-sort="descending">Item Count</th>
+                                                    <th class="sorting_desc" tabindex="0" aria-controls="example2"
+                                                        rowspan="1" colspan="1"
+                                                        aria-label="Rendering engine: activate to sort column ascending"
                                                         aria-sort="descending">Invoice Date</th>
 
                                                     <th class="sorting" tabindex="0" aria-controls="example2"
@@ -69,16 +73,25 @@
                                                 <tr role="row" class="odd">
                                                     <td class="sorting_1" tabindex="0">{{ $i++ }} </td>
                                                     <td class="sorting_1" tabindex="0">{{ $row->invoice_number }} </td>
+                                                    <td class="sorting_1" tabindex="0">{{ $row->items_count }} </td>
                                                     <td class="sorting_1" tabindex="0">{{ $row->order_date }} </td>
                                                     <td >
                                                       <div class="btn-group btn-group-sm">
                                                         @if ( $row->pi_status ==0)
                                                         <a title="Proforma Invoice Generate" target="_blank" href="{{ url('pi-generate/' . $row->id) }}" class="btn btn-warning"><i class="fas fa-file-invoice-dollar"></i></a> 
-                                                            
+                                                        @endif
+                                                        @if ( $row->pi_status ==1 && $row->ci_status == 0)
+                                                        <a title="Commercial Invoice Generate" target="_blank" href="{{ url('ci-generate/' . $row->id) }}" class="btn btn-primary"><i class="fas fa-file-invoice-dollar"></i></a> 
                                                         @endif
                                                         <a title="Print Invoice" target="_blank" href="{{ url('sc-print/' . $row->id) }}" class="btn btn-success"><i class="fas fa-print"></i></a>
                                                         <a title="Invoice details" href="{{ url('invoice-details/' . $row->id) }}" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                                                        <a title="Delete Invoice" href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                                        <form action="{{ route('invoice-upload.destroy', $row->id) }}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <a title="Delete Sales Contact Invoice" href="javascript:;" onclick="return confirm('are you sure you want to delete?')">                                                        
+                                                            <button type="submit" class="btn bg-red " title="Click To Delete"><i class="fas fa-trash"></i></button>
+                                                            </a>                                                
+                                                        </form>  
                                                       </div>
                                                     </td>
                                                 </tr>

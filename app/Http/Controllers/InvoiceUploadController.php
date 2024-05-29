@@ -13,6 +13,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Port_of_discharged;
 use App\Models\SignatureUpload;
+use App\Models\CommercialInvoice;
 use App\Models\Terms;
 use Auth;
 use Illuminate\Http\Request;
@@ -26,7 +27,8 @@ class InvoiceUploadController extends Controller
 {
     public function index()
     {
-        $orderList = Order::all();
+        $orderList = Order::with(['customer','company'])->withCount('items')->get();
+        // dd( $orderList );
         return view('pages.invoice_upload.index', compact('orderList'));
     }
 
@@ -39,7 +41,7 @@ class InvoiceUploadController extends Controller
 
     public function scInvoicePrint($id) {
         $orderList = Order::with(['customer','company','country','bank','mode','destination','loading','discharged'])->where('id', $id)->first();
-        $orderDetails = OrderItem::where('sale_id', $id)->get();
+        $orderDetails = OrderItem::where('sale_id', $id)->where('pi_status', 0)->get();
         $signature = SignatureUpload::where('status', 1)->first();
 
         $signaturePath = $signature ? storagePath().$signature->signature : '';
@@ -101,12 +103,14 @@ class InvoiceUploadController extends Controller
             $query->where('pi_status', 1);
         })->with(['items' => function($query) {
             $query->where('pi_status', 1);
+        }])->withCount(['items' => function($query) {
+            $query->where('pi_status', 1);
         }])->get(); 
         return view('pages.invoice_upload.pi-list',compact('orderList'));  
     }
     public function piInvoicePrint($id) {
         $orderList = Order::with(['customer','company','country','bank','mode','destination','loading','discharged'])->where('id', $id)->first();
-        $orderDetails = OrderItem::where('sale_id', $id)->get();
+        $orderDetails = OrderItem::where('sale_id', $id)->where('pi_status', 1)->get();
         $signature = SignatureUpload::where('status', 1)->first();
 
         $signaturePath = $signature ? storagePath().$signature->signature : ''; 
@@ -127,6 +131,79 @@ class InvoiceUploadController extends Controller
         // Generate the PDF content
         // return view('pages.invoice_upload.sc-invoice-pdf', $data);
         $pdfContent = PDFHelper::generatePDF('pages.invoice_upload.pi-invoice-pdf', $data);
+
+        // Return the PDF as a response
+        return Response::make($pdfContent, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="Sales-Contact-PDF.pdf"'
+        ]);
+    }
+
+
+    public function ciGenerate($id) {
+        $orderList = Order::where('ci_status', 0)->where('id', $id)->first();
+        $orderDetails = OrderItem::where('sale_id', $id)->where('ci_status',0)->get(); 
+        // dd($orderList, $orderDetails);
+        $data = [
+            'title' => 'Proforma Invoice',
+            'orderList' => $orderList,
+            'orderDetails' => $orderDetails, 
+        ]; 
+        // Generate the PDF content
+        return view('pages.invoice_upload.ci-generate', $data); 
+    }
+    public function generateCi(Request $request){ 
+        $order_id = $request->get('inv');
+        // foreach ($request->get('pi-selected') as $key => $value) {
+        $orderItem = OrderItem::where('sale_id', $order_id)->update(['ci_status' => 1 ]); 
+
+        $commer = new CommercialInvoice();
+        $commer->sale_id = $order_id;
+        $commer->exp_no = $request->get('exp_no');
+        $commer->submited_date = $request->get('submited_date');
+        $commer->save();
+        // };
+        $orderDetails = OrderItem::where('sale_id', $order_id)->where('ci_status',0)->first();  
+        if(!$orderDetails){ 
+            $order = Order::find($order_id);
+            $order->ci_status = 1;
+            $order->update();
+        }
+        return redirect()->back()->with('success', 'PI Generated successfully');
+    }
+    public function ciList(){
+        $orderList = Order::whereHas('items', function($query) {
+            $query->where('ci_status', 1);
+        })->with(['items' => function($query) {
+            $query->where('ci_status', 1);
+        }])->withCount(['items' => function($query) {
+            $query->where('ci_status', 1);
+        }])->get(); 
+        return view('pages.invoice_upload.ci-list',compact('orderList'));  
+    }
+    public function ciInvoicePrint($id) {
+        $orderList = Order::with(['customer','company','country','bank','mode','destination','loading','discharged','commercialInvoice'])->where('id', $id)->first();
+        $orderDetails = OrderItem::where('sale_id', $id)->where('ci_status', 1)->get();
+        $signature = SignatureUpload::where('status', 1)->first();
+
+        $signaturePath = $signature ? storagePath().$signature->signature : ''; 
+        $signatureBase64 = '';
+
+        if (file_exists($signaturePath)) {
+            $signatureBase64 = base64_encode(file_get_contents($signaturePath));
+        }
+        
+        $data = [
+            'title' => 'Sales Contact PDF',
+            'orderlist' => $orderList,
+            'orderdetails' => $orderDetails,
+            'signature' => $signatureBase64,
+            'signature_file' => $signaturePath,
+        ];
+
+        // Generate the PDF content
+        // return view('pages.invoice_upload.sc-invoice-pdf', $data);
+        $pdfContent = PDFHelper::generatePDF('pages.invoice_upload.ci-invoice-pdf', $data);
 
         // Return the PDF as a response
         return Response::make($pdfContent, 200, [
@@ -279,5 +356,11 @@ class InvoiceUploadController extends Controller
     }
     }  */
 
+    }
+
+    public function destroy(Order $invoice_upload)
+    {
+        $invoice_upload->delete();
+        return redirect()->route('invoice-upload.index');
     }
 }

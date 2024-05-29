@@ -82,6 +82,12 @@
                   <p>PI List</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{ url('ci-list') }}" class="nav-link {{ request()->is('ci-list') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>CI List</p>
+                </a>
+              </li>
             </ul>
           </li>
           <li class="nav-item has-treeview {{ request()->is('bank*') ? 'menu-open' : '' }}">
