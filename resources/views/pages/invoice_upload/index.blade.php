@@ -79,10 +79,7 @@
                                                       <div class="btn-group btn-group-sm">
                                                         @if ( $row->pi_status ==0)
                                                         <a title="Proforma Invoice Generate" target="_blank" href="{{ url('pi-generate/' . $row->id) }}" class="btn btn-warning"><i class="fas fa-file-invoice-dollar"></i></a> 
-                                                        @endif
-                                                        @if ( $row->pi_status ==1 && $row->ci_status == 0)
-                                                        <a title="Commercial Invoice Generate" target="_blank" href="{{ url('ci-generate/' . $row->id) }}" class="btn btn-primary"><i class="fas fa-file-invoice-dollar"></i></a> 
-                                                        @endif
+                                                        @endif 
                                                         <a title="Print Invoice" target="_blank" href="{{ url('sc-print/' . $row->id) }}" class="btn btn-success"><i class="fas fa-print"></i></a>
                                                         <a title="Invoice details" href="{{ url('invoice-details/' . $row->id) }}" class="btn btn-info"><i class="fas fa-eye"></i></a>
                                                         <form action="{{ route('invoice-upload.destroy', $row->id) }}" method="POST">

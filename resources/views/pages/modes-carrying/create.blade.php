@@ -48,7 +48,7 @@
                         </ul>
                     </div>
                 @endif
-                  <form role="form" action="{{ route('mode-carrying.store') }}" method="POST">
+                  <form role="form" action="{{ route('modes_of_carrying.store') }}" method="POST">
                     @csrf
                     <div class="card-body">
                       <div class="form-group">

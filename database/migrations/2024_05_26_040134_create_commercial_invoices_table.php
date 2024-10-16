@@ -13,8 +13,12 @@ return new class extends Migration
     {
         Schema::create('commercial_invoices', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('sale_id');
+            $table->unsignedBigInteger('sale_id');  
+            $table->unsignedTinyInteger('pw_status')->default(0)->comment('0=No|1=Yes');
+            $table->unsignedTinyInteger('tr_status')->default(0)->comment('0=No|1=Yes'); 
+            $table->unsignedTinyInteger('angikarnama_status')->default(0)->comment('0=No|1=Yes'); 
             $table->string('exp_no',100);
+            $table->text('tone');
             $table->date('submited_date'); 
             $table->timestamps();
         });

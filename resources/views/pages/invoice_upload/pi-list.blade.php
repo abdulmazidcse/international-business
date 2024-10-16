@@ -77,6 +77,9 @@
                                                     <td class="sorting_1" tabindex="0">{{ $row->order_date }} </td>
                                                     <td >
                                                       <div class="btn-group btn-group-sm"> 
+                                                        @if ( $row->ci_status == 0)
+                                                        <a title="Commercial Invoice Generate" target="_blank" href="{{ url('ci-generate/' . $row->id) }}" class="btn btn-primary"><i class="fas fa-file-invoice-dollar"></i></a> 
+                                                        @endif
                                                         <a title="Print Proforma Invoice" target="_blank" href="{{ url('pi-print/' . $row->id) }}" class="btn btn-success"><i class="fas fa-print"></i></a> 
                                                          
                                                       </div>

@@ -31093,4 +31093,9 @@ a.text-muted:hover {
 [class*="accent-"] a.btn-dark {
   color: #ffffff;
 }
+
+@font-face {
+      font-family: "FN-Mahfuj-Raiyan"; /* Give it a friendly name */
+      src: url("assets/fonts/FN-Mahfuj-Raiyan-Regular.ttf") format("truetype");
+    }
 /*# sourceMappingURL=adminlte.css.map */

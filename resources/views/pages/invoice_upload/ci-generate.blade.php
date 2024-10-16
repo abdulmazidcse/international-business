@@ -55,8 +55,8 @@
                                 <div class="form-group col-md-12">
                                     <label for="note">Note</label> 
                                     <textarea id="myeditorinstance"  value=""
-                                        class="form-control @error('terms_and_conditions') is-invalid @enderror"
-                                        name="terms_and_conditions" placeholder="Enter terms & conditions "> </textarea>
+                                        class="form-control @error('note') is-invalid @enderror"
+                                        name="note" placeholder="Enter terms & conditions "> </textarea>
                                 </div>
                             </div>
                         </div>
@@ -66,7 +66,11 @@
                             </div>
                             <div><strong>Date: </strong> {{ date('d-m-Y', strtotime($orderList->order_date)) }}</div>
                             <div><strong>EXPORTER: </strong> {{ $orderList->company->name }}</div>
-                            <div><strong>BENEFICIARY BANK: </strong> {{ $orderList->bank->name }}</div>
+                            <div><strong>BENEFICIARY BANK: </strong> 
+                                {{$orderList->bank->name}}, 
+                                {{$orderList->bank->account_no}}, 
+                                {{$orderList->bank->swift_code}},
+                                {{$orderList->bank->branch}}</div>
 
                         </div>
                         <div class="col-sm-6">

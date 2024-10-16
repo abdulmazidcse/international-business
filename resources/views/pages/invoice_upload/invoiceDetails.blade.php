@@ -35,7 +35,12 @@
                             </div>
                             <div><strong>Date: </strong> {{date('d-m-Y', strtotime($orderList->order_date))}}</div>
                             <div><strong>EXPORTER: </strong> {{$orderList->company->name}}</div>
-                            <div><strong>BENEFICIARY BANK: </strong> {{$orderList->bank->name}}</div>
+                            <div><strong>BENEFICIARY BANK: </strong> 
+                                {{$orderList->bank->name}}, 
+                                {{$orderList->bank->account_no}}, 
+                                {{$orderList->bank->swift_code}},
+                                {{$orderList->bank->branch}}
+                            </div>
                         </div>
 
                         <div class="col-sm-6">

@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Proforma Invoice</h1>
+                    <h1 class="m-0 text-dark">Commercial Invoice</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Proforma Invoice list</li>
+                        <li class="breadcrumb-item active">Commercial Invoice list</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -26,7 +26,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Proforma Invoice list</h3>
+                            <h3 class="card-title">Commercial Invoice list</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -41,27 +41,13 @@
                                             role="grid" aria-describedby="example2_info">
                                             <thead>
                                                 <tr role="row">
-                                                    <th class="sorting_desc" tabindex="0" aria-controls="example2"
-                                                        rowspan="1" colspan="1"
-                                                        aria-label="Rendering engine: activate to sort column ascending"
-                                                        aria-sort="descending">Sl</th>
-                                                    <th class="sorting_desc" tabindex="0" aria-controls="example2"
-                                                        rowspan="1" colspan="1"
-                                                        aria-label="Rendering engine: activate to sort column ascending"
-                                                        aria-sort="descending">Invoice No</th>
-                                                    <th class="sorting_desc" tabindex="0" aria-controls="example2"
-                                                        rowspan="1" colspan="1"
-                                                        aria-label="Rendering engine: activate to sort column ascending"
-                                                        aria-sort="descending">Item Count</th>
-                                                    <th class="sorting_desc" tabindex="0" aria-controls="example2"
-                                                        rowspan="1" colspan="1"
-                                                        aria-label="Rendering engine: activate to sort column ascending"
-                                                        aria-sort="descending">Invoice Date</th>
+                                                    <th>Sl</th>
+                                                    <th>Invoice No</th> 
+                                                    <th>Exp No</th>
+                                                    <th>Item Count</th>
+                                                    <th>Invoice Date</th>
 
-                                                    <th class="sorting" tabindex="0" aria-controls="example2"
-                                                        rowspan="1" colspan="1"
-                                                        aria-label="Engine version: activate to sort column ascending">
-                                                        Action</th>
+                                                    <th> Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -72,12 +58,16 @@
                                               @foreach ($orderList as $row)
                                                 <tr role="row" class="odd">
                                                     <td class="sorting_1" tabindex="0">{{ $i++ }} </td>
-                                                    <td class="sorting_1" tabindex="0">{{ $row->invoice_number }} </td>
+                                                    <td class="sorting_1" tabindex="0">{{ $row->order ? $row->order->invoice_number : '' }} </td>
+                                                    <td class="sorting_1" tabindex="0">{{ $row->exp_no }} </td>
                                                     <td class="sorting_1" tabindex="0">{{ $row->items_count }} </td>
-                                                    <td class="sorting_1" tabindex="0">{{ $row->order_date }} </td>
+                                                    <td class="sorting_1" tabindex="0">{{ $row->order ? $row->order->order_date : '' }} </td>
                                                     <td >
-                                                      <div class="btn-group btn-group-sm"> 
-                                                        <a title="Print Proforma Invoice" target="_blank" href="{{ url('ci-print/' . $row->id) }}" class="btn btn-success"><i class="fas fa-print"></i></a> 
+                                                      <div class="btn-group btn-group-sm">  
+                                                        @if ( $row->pw_status == 0)
+                                                        <a title="Packing & Weight Generate" target="_blank" href="{{ url('pw-generate/' . $row->id) }}" class="btn btn-primary"><i class="fas fa-file-invoice-dollar"></i></a> 
+                                                       @endif
+                                                        <a title="Print Commercial Invoice" target="_blank" href="{{ url('ci-print/' . $row->id) }}" class="btn btn-success"><i class="fas fa-print"></i></a> 
                                                          
                                                       </div>
                                                     </td>
@@ -86,12 +76,14 @@
                                                 @endif
                                             </tbody>
                                             <tfoot>
-                                                <tr>
-                                                    <th rowspan="1" colspan="1">Sl</th>
-                                                    <th rowspan="1" colspan="1">Invoice No</th>
-                                                    <th rowspan="1" colspan="1">Item Count</th>
-                                                    <th rowspan="1" colspan="1">Invoice Date</th>
-                                                    <th rowspan="1" colspan="1">Action</th>
+                                                <tr role="row">
+                                                    <th>Sl</th>
+                                                    <th>Invoice No</th> 
+                                                    <th>Exp No</th>
+                                                    <th>Item Count</th>
+                                                    <th>Invoice Date</th>
+
+                                                    <th> Action</th>
                                                 </tr>
                                             </tfoot>
                                         </table>

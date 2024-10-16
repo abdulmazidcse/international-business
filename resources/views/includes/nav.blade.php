@@ -1,6 +1,6 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="/" class="brand-link">
       <img src="{{ asset('assets/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">IB</span>
@@ -57,7 +57,7 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview {{ request()->is('invoice-upload*') ? 'menu-open' : '' }}">
+          <li class="nav-item has-treeview {{ request()->is('invoice-upload*', 'pi-list*', 'ci-list*','pw-list*','tr-list*', 'angikarnama*') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p> Order <i class="right fas fa-angle-left"></i>
@@ -86,6 +86,24 @@
                 <a href="{{ url('ci-list') }}" class="nav-link {{ request()->is('ci-list') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>CI List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('pw-list') }}" class="nav-link {{ request()->is('pw-list') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>PW List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('tr-list') }}" class="nav-link {{ request()->is('tr-list') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>TR List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('angikarnama-list') }}" class="nav-link {{ request()->is('angikarnama-list') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Angikarnama List</p>
                 </a>
               </li>
             </ul>
@@ -139,6 +157,27 @@
                   <p>Signature</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{ url('sales-term') }}" class="nav-link {{ request()->is('sales-term') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Sales Term</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview {{ request()->is('report*') ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p> Report <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('top-sheet') }}" class="nav-link {{ request()->is('top-sheet') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Top Sheet</p>
+                </a>
+              </li> 
             </ul>
           </li>
         </ul>

@@ -15,8 +15,10 @@ class PDFHelper
         $mpdf = new Mpdf([
             'mode' => 'utf-8',
             'format' => 'A4',
+            'font-family'=> 'bangla',
             'setAutoTopMargin' => 'stretch',
             'setAutoBottomMargin' => 'stretch',
+            'default_font' => 'FN-Mahfuj-Raiyan',
             'tempDir' => storage_path('app/tmp')
         ]);
 

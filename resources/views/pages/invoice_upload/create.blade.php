@@ -9,9 +9,7 @@
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">
-              User role create </li>
+            <li class="breadcrumb-item"><a href="#">Home</a></li> 
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -57,9 +55,6 @@
                 <!-- /.col -->
               </div>
               <!-- /.row -->
-
-
-
               <form action="{{ route('invoice-upload.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-row">
@@ -69,7 +64,12 @@
                   </div>
                   <div class="form-group col-md-4">
                     <label for="sales_term">SALES TERM</label>
-                    <input type="text" value="{{old('sales_term')}}" class="form-control" name="sales_term" id="sales_term" placeholder="CFR BASIS">
+                    <select name="sales_term" id="sales_term" class="form-control">
+                      <option value="" >Select Sales Term </option>
+                      @foreach($salesTerms as $term)
+                      <option value="{{$term->name}}" {{ old('sales_term') == $term->name ? 'selected' : '' }}>{{$term->name}}</option>
+                      @endforeach
+                    </select> 
                   </div>
                   <div class="form-group col-md-4">
                     <label for="country">COUNTRY OF ORIGIN</label>
@@ -165,7 +165,7 @@
 
                 </div>
                 <div class="form-group">
-                  <label for="file">Example file input</label>
+                  <label for="file">Invoice file upload</label>
                   <input type="file" class="form-control-file" id="file" name="file">
                 </div>
                 <button type="submit" class="btn btn-primary">Save</button>

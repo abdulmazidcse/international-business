@@ -23,9 +23,7 @@
         <div class="container">
             <div class="card">
                 <div class="card-header">
-                    <strong>SALES CONTACT: </strong>{{ $orderList->invoice_number }}
-                    <span class="float-right"> <strong>Status:</strong> Pending</span>
-
+                    <strong>SALES CONTACT: </strong>{{ $orderList->invoice_number }} 
                 </div>
                 <div class="card-body">
                     <div class="row mb-4">

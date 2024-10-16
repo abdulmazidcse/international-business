@@ -173,7 +173,10 @@
 						{{ $orderlist->customer->name }}. {{ $orderlist->customer->address }}
 					</th>
 					<th colspan="4" style="width: 30% !important;text-align: right !important">
-						{{ $orderlist->bank->name }}. {{ $orderlist->bank->account_no }}
+						{{$orderlist->bank->name}}, 
+						{{$orderlist->bank->account_no}}, 
+						{{$orderlist->bank->swift_code}},
+						{{$orderlist->bank->branch}}
 					</th>
 				</tr>
 				<tr>
@@ -186,7 +189,10 @@
 				</tr>
 				<tr>
 					<th colspan="3" rowspan="4" style="width: 30% !important;text-align: right !important">
-						{{ $orderlist->bank->name }}. {{ $orderlist->bank->account_no }}
+						{{$orderlist->bank->name}}, 
+						{{$orderlist->bank->account_no}}, 
+						{{$orderlist->bank->swift_code}},
+						{{$orderlist->bank->branch}}
 					</th>
 					<th colspan="3" style="width: 30% !important;text-align: right !important">
 						MODE OF CARRYING:

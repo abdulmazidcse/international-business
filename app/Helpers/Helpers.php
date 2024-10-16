@@ -90,3 +90,21 @@ function storagePath()
     }
     return $path;
 }
+
+
+function getFinancialYear($inputDate,$format="Y"){
+    $date=date_create($inputDate);
+    if (date_format($date,"m") > 6) {//On or After July (FY is current year - next year)
+        $financial_year = (date_format($date,$format)) . '-' . (date_format($date,$format)+1);
+    } else {//On or Before june (FY is previous year - current year)
+        $financial_year = (date_format($date,$format)-1) . '-' . date_format($date,$format);
+    }
+    return $financial_year;
+} 
+function fiscalYears($start_year, $end_year){ 
+    $financial_years = [];
+    for ($year = $start_year; $year <= $end_year; $year++) {
+        $financial_years[] = getFinancialYear($year . "-07-01"); // Assuming July 1st as the input date
+    }
+    return $financial_years;
+}
