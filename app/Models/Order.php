@@ -66,5 +66,5 @@ class Order extends Model
     }
     public function discharged(){
         return $this->belongsTo(Port_of_discharged::class,'port_discharge_id','id');
-    }
+    } 
 }
