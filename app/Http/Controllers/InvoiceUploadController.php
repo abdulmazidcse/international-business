@@ -210,7 +210,8 @@ class InvoiceUploadController extends Controller
     }
 
     public function ciInvoicePrint($id) {
-        $orderList = Order::with(['customer','company','country','bank','mode','destination','loading','discharged','commercialInvoice'])->where('id', $id)->first();
+        $commercialInvoice = CommercialInvoice::find($id);
+        $orderList = Order::with(['customer','company','country','bank','mode','destination','loading','discharged','commercialInvoice'])->where('id', $commercialInvoice->sale_id)->first();
         $orderDetails = OrderItem::where('sale_id', $id)->where('ci_status', 1)->get();
         $signature = SignatureUpload::where('status', 1)->first();
 
@@ -284,7 +285,8 @@ class InvoiceUploadController extends Controller
         return view('pages.invoice_upload.pw-list',compact('orderList'));  
     }
     public function pwInvoicePrint($id) {
-        $orderList = Order::with(['customer','company','country','bank','mode','destination','loading','discharged','commercialInvoice'])->where('id', $id)->first();
+        $commercialInvoice = CommercialInvoice::find($id);
+        $orderList = Order::with(['customer','company','country','bank','mode','destination','loading','discharged','commercialInvoice'])->where('id', $commercialInvoice->sale_id)->first();
         $orderDetails = OrderItem::where('sale_id', $id)->where('ci_status', 1)->get();
         $signature = SignatureUpload::where('status', 1)->first();
 
@@ -407,13 +409,13 @@ class InvoiceUploadController extends Controller
         // Generate the PDF content
         return view('pages.invoice_upload.angikarnama-generate', $data); 
     }
-    public function generateAngikarnama(Request $request){ 
+    public function generateAngikarnama(Request $request){  
         $order_id = $request->get('inv'); 
         CommercialInvoice::where('id', $order_id)->update(['angikarnama_status' => 1 ]);  
         $order = CommercialInvoice::where('id', $order_id)->first(); 
 
         $commer = new Angikarnama();  
-        $commer->sale_id = $order_id;
+        $commer->sale_id = $order->sale_id;
         $commer->commercial_id = $order->id;
         $commer->tr_id = $order_id;
         $commer->name = $request->get('name');
