@@ -54,14 +54,14 @@ class InvoiceUploadController extends Controller
         $orderDetails = OrderItem::where('sale_id', $id)->get();
         $signature = SignatureUpload::where('status', 1)->first();
 
-        $signaturePath = $signature ? storagePath().$signature->signature : '';
-        // $signaturePath = $signature ? storage_path($signature->signature) : '';
-        $signatureBase64 = '';
+        $signatureBase64 ='';
+        $signaturePath = $signature->signature;
 
-        if (file_exists($signaturePath)) {
-            $signatureBase64 = base64_encode(file_get_contents($signaturePath));
-        }
-        
+        if (Storage::disk('public')->exists($signaturePath)) { 
+            $signatureBase64 = base64_encode(Storage::disk('public')->get($signaturePath)); 
+        } else {
+            Log::error("Signature file not found in public storage: " . $signaturePath);
+        }  
         $data = [
             'title' => 'Sales Contact PDF',
             'orderlist' => $orderList,
@@ -69,6 +69,7 @@ class InvoiceUploadController extends Controller
             'signature' => $signatureBase64,
             'signature_file' => $signaturePath,
         ];
+        // dd($data);
 
         // Generate the PDF content
         // return view('pages.invoice_upload.sc-invoice-pdf', $data);
@@ -122,12 +123,14 @@ class InvoiceUploadController extends Controller
         $orderList = Order::with(['customer','company','country','bank','mode','destination','loading','discharged'])->where('id', $id)->first();
         $orderDetails = OrderItem::where('sale_id', $id)->where('pi_status', 1)->get();
         $signature = SignatureUpload::where('status', 1)->first();
-
-        $signaturePath = $signature ? storagePath().$signature->signature : ''; 
+ 
         $signatureBase64 = '';
+        $signaturePath = $signature->signature;
 
-        if (file_exists($signaturePath)) {
-            $signatureBase64 = base64_encode(file_get_contents($signaturePath));
+        if (Storage::disk('public')->exists($signaturePath)) { 
+            $signatureBase64 = base64_encode(Storage::disk('public')->get($signaturePath)); 
+        } else {
+            Log::error("Signature file not found in public storage: " . $signaturePath);
         }
         
         $data = [
@@ -215,12 +218,14 @@ class InvoiceUploadController extends Controller
         $orderDetails = OrderItem::where('sale_id', $id)->where('ci_status', 1)->get();
         $signature = SignatureUpload::where('status', 1)->first();
 
-        $signaturePath = $signature ? storagePath().$signature->signature : ''; 
-        $signatureBase64 = '';
+        $signatureBase64 ='';
+        $signaturePath = $signature->signature;
 
-        if (file_exists($signaturePath)) {
-            $signatureBase64 = base64_encode(file_get_contents($signaturePath));
-        }
+        if (Storage::disk('public')->exists($signaturePath)) { 
+            $signatureBase64 = base64_encode(Storage::disk('public')->get($signaturePath)); 
+        } else {
+            Log::error("Signature file not found in public storage: " . $signaturePath);
+        }  
         
         $data = [
             'title' => 'Sales Contact PDF',
@@ -290,12 +295,14 @@ class InvoiceUploadController extends Controller
         $orderDetails = OrderItem::where('sale_id', $id)->where('ci_status', 1)->get();
         $signature = SignatureUpload::where('status', 1)->first();
 
-        $signaturePath = $signature ? storagePath().$signature->signature : ''; 
-        $signatureBase64 = '';
+        $signatureBase64 ='';
+        $signaturePath = $signature->signature;
 
-        if (file_exists($signaturePath)) {
-            $signatureBase64 = base64_encode(file_get_contents($signaturePath));
-        }
+        if (Storage::disk('public')->exists($signaturePath)) { 
+            $signatureBase64 = base64_encode(Storage::disk('public')->get($signaturePath)); 
+        } else {
+            Log::error("Signature file not found in public storage: " . $signaturePath);
+        }  
         
         $data = [
             'title' => 'Sales Contact PDF',
@@ -370,12 +377,14 @@ class InvoiceUploadController extends Controller
         // $totalBunch = CommercialItem::where('commercial_id', $id)->where('tr_status', 1)->sum('total_bunch');
         $signature = SignatureUpload::where('status', 1)->first();
 
-        $signaturePath = $signature ? storagePath().$signature->signature : ''; 
-        $signatureBase64 = '';
+        $signatureBase64 ='';
+        $signaturePath = $signature->signature;
 
-        if (file_exists($signaturePath)) {
-            $signatureBase64 = base64_encode(file_get_contents($signaturePath));
-        }
+        if (Storage::disk('public')->exists($signaturePath)) { 
+            $signatureBase64 = base64_encode(Storage::disk('public')->get($signaturePath)); 
+        } else {
+            Log::error("Signature file not found in public storage: " . $signaturePath);
+        }  
         
         $data = [
             'title' => 'Sales Contact PDF',

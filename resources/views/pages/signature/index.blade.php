@@ -65,13 +65,15 @@
                                                             </td>
                                                             <td class="sorting_1" tabindex="0">
                                                                 {{ $signature->designation }} </td>
-                                                            <td class="sorting_1" tabindex="0">
-                                                                <img width="100" src="{{ Storage::url($signature->signature) }}" alt="Signature">
-                                                                <img width="100" src="{{ storage_path('/'.$signature->signature) }}" alt="Signature">
-                                                                <img width="100" src="{{ storage_path($signature->signature) }}" alt="Signature"> 
+                                                            <td class="sorting_1" tabindex="0"> 
                                                                 <img width="100" src="{{ asset('storage/'.$signature->signature) }}" alt="Signature"> 
                                                             </td>
-                                                            <td class="sorting_1" tabindex="0">{{ $signature->status }}
+                                                            <td class="sorting_1" tabindex="0">
+                                                                @if ($signature->status  ==1)
+                                                                    <span class="badge badge-success">Active</span>
+                                                                @else
+                                                                    <span class="badge badge-success">In-Active</span>
+                                                                @endif 
                                                             </td>
                                                             <td>
                                                                 <div class="btn-group btn-group-sm">

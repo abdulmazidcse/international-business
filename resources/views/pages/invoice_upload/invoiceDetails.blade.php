@@ -94,9 +94,20 @@
                                 @php
                                 // dd($orderDetails);
                                 $i = 1;
-                                $totalQty = 0;
-                                $totalBunchCtn = 0;
-                                $totalUsd = 0;
+                                $totalBunchCtn = 0; 
+                                $totalQty = 0; 
+                                $totalBunch = 0; 
+                                $totalWeightPerUnit = 0;  
+                                $totalNetUnit = 0; 
+                                $totalUnitRat = 0;  
+                                $totalValue = 0; 
+                                $totalGrossWeight = 0; 
+                                $totalCbmLength = 0; 
+                                $totalCbmWidth = 0;  
+                                $totalCbmHeight = 0; 
+                                $totalCbmCarton = 0; 
+                                $totalCbm = 0;  
+                                $totalTotalGrossWeight = 0;  
                                 @endphp
                                 @foreach ($orderDetails as $row)
                                   <tr role="row" class="odd">
@@ -113,7 +124,7 @@
                                       <td class="sorting_1" tabindex="0">{{ $row->total_value }} </td>
                                       <td class="sorting_1" tabindex="0">{{ $row->gross_weight }} </td>
                                       <td class="sorting_1" tabindex="0">{{ $row->cbm_length}} </td>
-                                      <td class="sorting_1" tabindex="0">{{ $row->cbm_length}} </td>
+                                      <td class="sorting_1" tabindex="0">{{ $row->cbm_width}} </td>
                                       <td class="sorting_1" tabindex="0">{{ $row->cbm_height}} </td>
                                       <td class="sorting_1" tabindex="0">{{ $row->carton_cbm}} </td>
                                       <td class="sorting_1" tabindex="0">{{ $row->total_cbm}} </td>
@@ -121,20 +132,41 @@
                                   </tr>
 
                                   @php
-                                    $totalQty += $row->quantity_pcs;
-                                    $totalBunchCtn += $row->total_bunch_ctn;
-                                    $totalUsd += $row->total_value_usd;
+                                    $totalBunchCtn += $row->pcs_per_bunch;
+                                    $totalQty += $row->quantity;
+                                    $totalBunch += $row->total_bunch;
+                                    $totalWeightPerUnit += $row->weight_per_unit;
+                                    $totalNetUnit += $row->net_weight;
+                                    $totalUnitRat += $row->unit_rate;
+                                    $totalValue += $row->total_value;
+                                    $totalGrossWeight += $row->gross_weight;
+                                    $totalCbmLength += $row->cbm_length;
+                                    $totalCbmWidth += $row->cbm_width;
+                                    $totalCbmHeight += $row->cbm_height;
+                                    $totalCbmCarton += $row->carton_cbm;
+                                    $totalCbm += $row->total_cbm;
+                                    $totalTotalGrossWeight += $row->total_gross_weight;
                                   @endphp
                                   @endforeach
                                   <tr>
-                                    <th class="center" colspan="5"><strong>Total</strong></th>
-                                    <th>{{number_format($totalQty,2)}}</th>
-                                    <th colspan="4">{{number_format($totalBunchCtn,2)}}</th>
-                                    <th class="right">{{number_format($totalUsd,2)}}</th>
-                                    <th colspan="4">&nbsp;</th>
+                                    <th class="center" colspan="4"><strong>Total</strong></th>
+                                    <th>{{number_format($totalBunchCtn,2)}} </th> 
+                                    <th>{{number_format($totalQty,2)}} </th> 
+                                    <th>{{number_format($totalBunch,2)}}</th> 
+                                    <th>{{number_format($totalWeightPerUnit,2)}}</th> 
+                                    <th>{{number_format($totalNetUnit,2)}}</th> 
+                                    <th>{{number_format($totalUnitRat,2)}}</th> 
+                                    <th>{{number_format($totalValue,2)}}</th> 
+                                    <th>{{number_format($totalGrossWeight,2)}}</th> 
+                                    <th>{{number_format($totalCbmLength,2)}}</th> 
+                                    <th>{{number_format($totalCbmWidth,2)}}</th> 
+                                    <th>{{number_format($totalCbmHeight,2)}}</th> 
+                                    <th>{{number_format($totalCbmCarton,2)}}</th> 
+                                    <th>{{number_format($totalCbm,2)}}</th> 
+                                    <th>{{number_format($totalTotalGrossWeight,2)}}</th> 
                                 </tr>
                                 <tr>
-                                    <td colspan="14" class="left"><strong>TERMS AND CONDITIONS : </strong></td>
+                                    <td colspan="19" class="left"><strong>TERMS AND CONDITIONS : </strong></td>
                                 </tr>
                                 @php
                                     $i=1;

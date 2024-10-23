@@ -313,8 +313,8 @@
                 <tbody>
                     <tr>
                         <td colspan="2" style="text-align: center;"> 
-                            @if($signature_file)
-                            <img style="height: auto; width: 100px;" src="{{$signature_file}}" />
+                            @if($signature)
+                                <img src="data:image/png;base64,{{ $signature }}" alt="Signature" style="width:100px; height:auto;">
                             @endif
                         </td>
                     </tr>
